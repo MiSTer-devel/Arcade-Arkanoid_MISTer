@@ -119,6 +119,7 @@ parameter CONF_STR = {
 	"O6,Test mode,Off,On;",
 	"O7,Flip screen,Off,On;",
 	"O8,Continues,On,Off;",
+	"O9,Serial Spinner,Off,On;",
 	"OC,Sound chip,YM2149,AY-3-8910;",
 	"-;",
 	"R0,Reset;",
@@ -193,7 +194,7 @@ wire signed [8:0] mouse_x_in = $signed({ps2_mouse[4], ps2_mouse[15:8]});
 always @(posedge CLK_12M) begin
 	reg old_state;
 	integer spin_counter;
-
+	
 	reg signed  [8:0] mouse_x = 0;
 
 	logic signed [11:0] position = 0;
@@ -233,9 +234,9 @@ always @(posedge CLK_12M) begin
 			else position = mouse_x;
 		end
 
-		if (joy[0] | joy[1]) begin // 0.167us per cycle
+		if ((joy[0] | joy[1]) | (btn_left | btn_right)) begin // 0.167us per cycle
 			if (spin_counter == 'd48000) begin// roughly 8ms to emulate 125hz standard mouse poll rate
-				position <= joy[0] ? (joy[5] ? 12'd9 : 12'd4) : (joy[5] ? -12'd9 : -12'd4);
+				position <= joy[0] | btn_right ? (joy[5] | btn_fire ? 12'd9 : 12'd4) : (joy[5] | btn_fire ? -12'd9 : -12'd4);
 				spin_counter <= 0;
 			end else begin
 				spin_counter <= spin_counter + 1'b1;
@@ -243,7 +244,33 @@ always @(posedge CLK_12M) begin
 		end else begin
 			spin_counter <= 0;
 		end
+			
 	end
+end
+
+//Process to downgrade encoder pulses from 600 to 300 (Arkanoid Encoder original dps)
+//We use a 600 pulses AB Digital encoder
+
+logic [1:0] raw_encoder = 2'b11;
+wire encA = USER_IN[2];
+wire encB = USER_IN[1];
+wire dir = (encA == encB) ? 1'b0 : 1'b1; //Detect the movement direction of the ecoder
+reg encAr;
+always @(posedge CLK_12M) begin
+	encAr <= encA;
+		if(encAr != encA) begin 
+				case({dir , raw_encoder}) //If encoder moves, generate the signal depends of direction. 
+					{1'b1, 2'b00}: raw_encoder <= 2'b01;
+					{1'b1, 2'b01}: raw_encoder <= 2'b11;
+					{1'b1, 2'b11}: raw_encoder <= 2'b10;
+					{1'b1, 2'b10}: raw_encoder <= 2'b00;
+					{1'b0, 2'b00}: raw_encoder <= 2'b10;
+					{1'b0, 2'b10}: raw_encoder <= 2'b11;
+					{1'b0, 2'b11}: raw_encoder <= 2'b01;
+					{1'b0, 2'b01}: raw_encoder <= 2'b00;
+				endcase
+		end
+		
 end
 
 ///////////////////         Keyboard           //////////////////
@@ -260,6 +287,9 @@ always @(posedge CLK_12M) begin
 			'h02E: coin1 <= pressed;			// 5
 			'h036: coin2 <= pressed;			// 6
 			'h046: btn_service <= ~pressed;	// 9
+			'hX6B: btn_left        <= pressed; // left
+			'hX74: btn_right       <= pressed; // right
+			'h029: btn_fire        <= pressed; // space			
 		endcase
 	end
 end
@@ -269,12 +299,14 @@ end
 
 reg coin1 = 0;							// Active-HIGH.
 reg coin2 = 0;							// Active-HIGH.
-wire btn_shot = ~ps2_mouse[0];	// Active-LOW.
+wire btn_shot = status[9] ? USER_IN[3] : ~ps2_mouse[0];	// Active-LOW.
 reg btn_service = 1;					// Active-LOW.
 wire tilt = 1'b1;						// Active-LOW.
 reg btn_1p_start = 1;				// Active-LOW.
 reg btn_2p_start = 1;				// Active-LOW.
-
+reg btn_left = 0;
+reg btn_right = 0;
+reg btn_fire = 0;
 
 wire [7:0] dip_sw = {status[8], ~status[7:1]};	// Active-LOW
 /*DIP switches are in reverse order when compared to this table (sourced from MAME Arkanoid driver):
@@ -346,7 +378,7 @@ arkanoid arkanoid_inst
 
 	.clk_12m(CLK_12M),				// input clk_12m
 
-	.spinner(spinner_encoder),		// input [1:0] spinner
+	.spinner(status[9] ? raw_encoder : spinner_encoder),		// input [1:0] spinner
 	
 	.coin1(coin1 | joy[7]),		   // input coin1
 	.coin2(coin2),	         	   // input coin2
