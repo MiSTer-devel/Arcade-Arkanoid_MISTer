@@ -1,53 +1,33 @@
 <misterromdescription>
-  <name>Arkanoid</name>
-  <mameversion>0216</mameversion>
-  <mratimestamp>201911270000</mratimestamp>
-  <rbf>arkanoid</rbf>
-  <rom index='0' md5='b9fb0ef35479748397ddc187affa2fea' type='merged' zip='arkanoid.zip'>
-    <part name='arkatayt/ic81-v.3f'/>
-    <part name='arkatayt/ic82-w.5f'/>
-    <part name='a75-03.ic64'/>
-    <part name='a75-04.ic63'/>
-    <part name='a75-05.ic62'/>
-    <part name='a75-07.ic24'/>
-    <part name='a75-08.ic23'/>
-    <part name='a75-09.ic22'/>
-    <patch offset="0x33C2">49</patch>
-    <patch offset="0x33F4">49</patch>
-    <patch offset="0x3437">49</patch>
-    <patch offset="0x5042">	
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 FF 00 00 00 00 00
-       00 00 00 00 00
-    </patch>
-    <patch offset="0x7D9F">49</patch>
-    <patch offset="0xBDA5">ED</patch>
-    <patch offset="0xBFFF">92</patch>
-  </rom>
-  <rom index='0' md5='b9fb0ef35479748397ddc187affa2fea' type='split|nonmerged' zip='arkanoid.zip'>
-    <part name='ic81-v.3f' zip='arkatayt.zip'/>
-    <part name='ic82-w.5f' zip='arkatayt.zip'/>
-    <part name='a75-03.ic64'/>
-    <part name='a75-04.ic63'/>
-    <part name='a75-05.ic62'/>
-    <part name='a75-07.ic24'/>
-    <part name='a75-08.ic23'/>
-    <part name='a75-09.ic22'/>
-    <patch offset="0x33C2">49</patch>
-    <patch offset="0x33F4">49</patch>
-    <patch offset="0x3437">49</patch>
-    <patch offset="0x5042">	
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-       00 00 00 00 00 00 00 00 00 00 FF 00 00 00 00 00
-       00 00 00 00 00
-    </patch>
-    <patch offset="0x7D9F">49</patch>
-    <patch offset="0xBDA5">ED</patch>
-    <patch offset="0xBFFF">92</patch>
-  </rom>
-  
+	<name>Arkanoid (Tayto bootleg)</name>
+	<mameversion>0220</mameversion>
+	<setname>arkatayt</setname>
+	<mratimestamp>20200427161917</mratimestamp>
+	<year>1986</year>
+	<manufacturer>bootleg (Tayto)</manufacturer>
+	<category>Platform / Breakout</category>
+	<rbf>arkanoid</rbf>
+	<rom index="0" zip="arkanoid.zip|arkatayt.zip" md5="b9fb0ef35479748397ddc187affa2fea">
+		<part crc="154e2c6f" name="ic81-v.3f"/>
+		<part crc="4fa8cefa" name="ic82-w.5f"/>
+		<part crc="038b74ba" name="1-ic33.2c"/>
+		<part crc="71fae199" name="2-ic34.3c"/>
+		<part crc="c76374e2" name="3-ic35.5c"/>
+		<part crc="0af8b289" name="ic73.11e"/>
+		<part crc="abb002fb" name="ic74.12e"/>
+		<part crc="a7c6c277" name="ic75.13e"/>
+		<patch offset="0x33C2">49</patch>
+		<patch offset="0x33F4">49</patch>
+		<patch offset="0x3437">49</patch>
+		<patch offset="0x5042">	
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000FF0000000000
+0000000000
+		</patch>
+		<patch offset="0x7D9F">49</patch>
+		<patch offset="0xBDA5">ED</patch>
+		<patch offset="0xBFFF">92</patch>		
+	</rom>
 </misterromdescription>
