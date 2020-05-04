@@ -33,13 +33,19 @@ Place `*.rbf` and `a.arkanoid.rom` in the root of your SD card.
 
 ## Building the ROM
 ### ****ATTENTION****
-No ROMs are included.  In order to use this arcade core, you need to provide the
-correct ROM files.
+ROMs are not included. In order to use this arcade, you need to provide the
+correct ROMs.
 
-1) Place BAT file, IPS patch, flips.exe and 7za.exe from releases folder into a folder.
-2) Execute BAT file - the names of the required ZIP files will be displayed.
-3) Locate the previously-mentioned ZIP files.  You need to find the exact files required. Do not rename other ZIP files even if they also represent the same game - they are not compatible!
-   The ZIP file names are taken from the M.A.M.E. project, so you can get more info about hashes and contained files there.
-4) Place the required ZIP files into the same folder and execute the BAT file again.
-5) If no errors or warnings occur, a ROM file will be created in the folder.
-6) Place the ROM file into root of SD card.
+To simplify the process .mra files are provided in the releases folder, that
+specifies the required ROMs with checksums. The ROMs .zip filename refers to the
+corresponding file of the M.A.M.E. project.
+
+Please refer to https://github.com/MiSTer-devel/Main_MiSTer/wiki/Arcade-Roms for
+information on how to setup and use the environment.
+
+Quickreference for folders and file placement:
+
+/_Arcade/<game name>.mra
+/_Arcade/cores/<game rbf>.rbf
+/_Arcade/mame/<mame rom>.zip
+/_Arcade/hbmame/<hbmame rom>.zip
