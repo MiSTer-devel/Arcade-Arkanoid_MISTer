@@ -197,6 +197,7 @@ parameter CONF_STR = {
 	"R0,Reset;",
 	"J1,Fire,Fast,Start P1,Coin,Start P2;",
 	"jn,A,B,Start,R,Select;",
+	"jp,B,A,Start,Select,;",
 	"V,v",`BUILD_DATE
 };
 
