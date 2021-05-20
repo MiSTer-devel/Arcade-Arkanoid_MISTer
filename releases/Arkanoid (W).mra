@@ -24,7 +24,7 @@
 	<players>2 (alternating)</players>
 	<joystick></joystick>
 	<special_controls>spinner</special_controls>
-	<buttons>1</buttons>
+	<num_buttons>1</num_buttons>
 	<button_names></button_names>
 
 	<switches default="80">
@@ -37,7 +37,7 @@
 		<dip bits="7" ids="Off,On" name="Continues"></dip>
 		</switches>
 
-	<rom_1></rom_1>
+	<rom index="1"></rom>
 	<rom index="0" md5="none" zip="arkanoid.zip|arkatayt.zip">
 		<part crc="154e2c6f" name="ic81-v.3f"></part>
 		<part crc="4fa8cefa" name="ic82-w.5f"></part>
@@ -65,9 +65,9 @@
 		<patch offset="0xBDA5">ED</patch>
 		<patch offset="0xBFFF">33</patch>
 		</rom>
-	<rom_2></rom_2>
-	<rom_3></rom_3>
-	<rom_4></rom_4>
+	<rom index="2"></rom>
+	<rom index="3"></rom>
+	<rom index="4"></rom>
 
 	<nvram></nvram>
 
