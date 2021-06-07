@@ -195,9 +195,9 @@ parameter CONF_STR = {
 	"OA,Volume boost,Off,On;",
 	"-;",
 	"R0,Reset;",
-	"J1,Fire,Fast,Start P1,Coin,Start P2;",
+	"J1,Fire,Fast,Start 1P,Coin,Start 2P;",
 	"jn,A,B,Start,R,Select;",
-	"jp,B,A,Start,Select,;",
+	"jp,B,A,Start,R,Select;",
 	"V,v",`BUILD_DATE
 };
 
@@ -438,8 +438,8 @@ end
 
 wire m_fire   = btn_fire     | joy[4] | |ps2_mouse[1:0] | ~USER_IN[3];
 wire m_fast   = btn_fast     | joy[5];
-wire m_start1 = btn_1p_start | joy[6];
-wire m_start2 = btn_2p_start | joy[8];
+wire m_start1 = btn_1p_start | joystick_0[6];
+wire m_start2 = btn_2p_start | joy[8] | joystick_1[6];
 wire m_coin1  = btn_coin1    | joy[7];
 wire m_coin2  = btn_coin2;
 wire m_left   = btn_left     | joy[1];
